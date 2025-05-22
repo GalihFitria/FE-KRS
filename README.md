@@ -12,6 +12,10 @@ Proyek ini merupakan implementasi frontend Laravel dengan Tailwind CSS yang berk
 - REST API Backend (misal: CodeIgniter 4)
 - Vite (build frontend asset Laravel)
 
+## DATABASE
+import database
+🔗 [SI-KRS Database (GitHub)](https://github.com/WindyAnggitaPutri/SI_KRS_Database)
+
 ## 📦 BACKEND
 <h3>1. Clone Repository BE</h3>
 
