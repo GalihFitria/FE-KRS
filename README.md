@@ -84,7 +84,23 @@ composer create-priject laravel/laravel (nama-projek)
 ```bash
 composer install
 ```
-<h3>4. Menjalankan Laravel</h3>
+
+<h3>4. Copy File Environment</h3>
+
+```bash
+cp .env.example .env
+```
+<h3>5. 4. Set .env untuk Non-Database App</h3>
+
+```bash
+APP_NAME=Laravel
+APP_URL=http://localhost:8000
+SESSION_DRIVER=file
+```
+
+> Tidak perlu konfigurasi DB karena semua data berasal dari API CodeIgniter.
+
+<h3>6. Menjalankan Laravel</h3>
 
 ```bash
 php artisan serve
