@@ -36,7 +36,7 @@
                     <label for="jurusan" class="block">Prodi</label>
                     <select id="jurusan" name="kode_prodi" class="border w-full p-2 mb-2 rounded">
                         @foreach($prodi as $row)
-                        <option value="{{ $row['id_prodi'] }}"
+                        <option value="{{ $row['kode_prodi'] }}"
                             {{ $mahasiswa['kode_prodi'] == $row['kode_prodi'] ? 'selected' : '' }}>
                             {{ $row['nama_prodi'] }}
                             @endforeach

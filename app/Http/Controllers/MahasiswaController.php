@@ -81,26 +81,32 @@ class MahasiswaController extends Controller
     public function edit($mahasiswa)
     {
         //
-        $respon_mahasiswa = Http::get("http://localhost:8080/mahasiswa/$mahasiswa");
-        if (!$respon_mahasiswa->successful()) {
-            return redirect()->back()->with('error', 'Data mahasiswa tidak ditemukan.');
+        $mahasiswaResponse = Http::get("http://localhost:8080/mahasiswa/$mahasiswa");
+        $kelas = Http::get("http://localhost:8080/kelas")->json();
+        $prodi = Http::get("http://localhost:8080/prodi")->json();
+
+        if ($mahasiswaResponse->successful() && !empty($mahasiswaResponse[0])) {
+            $mahasiswa = $mahasiswaResponse[0];
+
+            // Tambahkan pencocokan manual ID berdasarkan nama
+            foreach ($kelas as $k) {
+                if ($k['nama_kelas'] === $mahasiswa['nama_kelas']) {
+                    $mahasiswa['id_kelas'] = $k['id_kelas'];
+                    break;
+                }
+            }
+
+            foreach ($prodi as $p) {
+                if ($p['nama_prodi'] === $mahasiswa['nama_prodi']) {
+                    $mahasiswa['kode_prodi'] = $p['kode_prodi'];
+                    break;
+                }
+            }
+
+            return view('editmahasiswa', compact('mahasiswa', 'kelas', 'prodi'));
+        } else {
+            return back()->with('error', 'Data mahasiswa tidak ditemukan.');
         }
-        $mahasiswa = $respon_mahasiswa->json();
-
-        // Ambil data kelas
-        $respon_kelas = Http::get('http://localhost:8080/kelas');
-        $kelas = collect($respon_kelas->json())->sortBy('id_kelas')->values();
-
-        // Ambil data prodi
-        $respon_prodi = Http::get('http://localhost:8080/prodi');
-        $prodi = collect($respon_prodi->json())->sortBy('kode_prodi')->values();
-
-        // Kirim semua data ke view
-        return view('editmahasiswa', [
-            'mahasiswa' => $mahasiswa,
-            'kelas' => $kelas,
-            'prodi' => $prodi
-        ]);
     }
 
     /**
