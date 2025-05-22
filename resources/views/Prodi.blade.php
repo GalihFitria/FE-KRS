@@ -83,6 +83,12 @@
                         @endforeach
                     </tbody>
                 </table>
+                <form action="{{ route('export.pdf') }}" method="GET">
+                    <button type="submit" class="bg-blue-500 text-white p-2 mt-4 rounded hover:bg-blue-600">
+                        🖨 Cetak
+                    </button>
+                </form>
+
                 <div class="flex justify-between items-center mt-4">
                     <button id="prevPage" class="bg-gray-400 text-white px-3 py-1 rounded hover:bg-gray-500">Previous</button>
                     <span id="pageInfo" class="text-gray-700">Page 1</span>
