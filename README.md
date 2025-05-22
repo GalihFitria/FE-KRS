@@ -90,7 +90,7 @@ composer install
 ```bash
 cp .env.example .env
 ```
-<h3>5. 4. Set .env untuk Non-Database App</h3>
+<h3>5. Set .env untuk Non-Database App</h3>
 
 ```bash
 APP_NAME=Laravel
