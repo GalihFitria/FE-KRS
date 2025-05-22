@@ -266,6 +266,126 @@ class MahasiswaController extends Controller
     }
 }
 ```
+ Contoh field name dalam objek data.
+ 
+```bash
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Mahasiswa;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+
+class MahasiswaController extends Controller
+{
+
+    public function index()
+    {
+        $response = Http::get('http://localhost:8080/mahasiswa');
+
+        if ($response->successful()) {
+            $mahasiswa = collect($response->json()['data'])->sortBy('npm')->values();
+            return view('Mahasiswa', compact('mahasiswa'));
+        } else {
+            return back()->with('error', 'Gagal mengambil data dosen');
+        }
+    }
+
+    public function create()
+    {
+        //
+        return view('tambahmahasiswa');
+    }
+
+    public function store(Request $request)
+    {
+        //
+        try {
+            $validate = $request->validate([
+                'npm' => 'required',
+                'nama_mahasiswa' => 'required',
+                'program_studi' => 'required',
+                'judul_skripsi' => 'required',
+                'email' => 'required'
+
+            ]);
+
+            Http::post('http://localhost:8080/mahasiswa', $validate);
+
+            response()->json([
+                'success' => true,
+                'message' => 'Mahasiswa berhasil ditambahkan!',
+                'data' => $request
+            ], 201);
+
+            return redirect()->route('Mahasiswa.index');
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function edit($npm)
+    {
+        //
+        $response = Http::get("http://localhost:8080/mahasiswa/$npm");
+
+        if ($response->successful()) {
+            $json = $response->json();
+
+           
+            if (isset($json['data'])) {
+                $mahasiswa = $json['data'];
+            } else {
+                $mahasiswa = $json; 
+            }
+
+            return view('editmahasiswa', ['mahasiswa' => $mahasiswa]);
+        } else {
+            return redirect()->route('Mahasiswa.index')->with('error', 'Data Mahasiswa tidak ditemukan.');
+        }
+    }
+
+    public function update(Request $request, $npm)
+    {
+        //
+        try {
+            $validate = $request->validate([
+                'npm' => 'required',
+                'nama_mahasiswa' => 'required',
+                'program_studi' => 'required',
+                'judul_skripsi' => 'required',
+                'email' => 'required'
+            ]);
+
+            Http::put("http://localhost:8080/mahasiswa/$npm", $validate);
+
+            response()->json([
+                'success' => true,
+                'message' => 'Mahasiswa berhasil diperbarui',
+                'data' => $request
+            ], 200);
+           
+            return redirect()->route('Mahasiswa.index');
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+    public function destroy($mahasiswa)
+    {
+        Http::delete("http://localhost:8080/mahasiswa/$mahasiswa");
+        return redirect()->route('Mahasiswa.index');
+    }
+}
+```
 
 <h3>Contoh KelasController.php</h3>
 
@@ -358,6 +478,139 @@ class KelasController extends Controller
         //
         Http::delete("http://localhost:8080/kelas/$kelas");
         return redirect()->route('Kelas.index');
+    }
+}
+```
+
+```bash
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Dosen;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+
+class DosenController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+        $response = Http::get('http://localhost:8080/dosen');
+
+        if ($response->successful()) {
+            // mengurutkan data dosen berdasarkan NIDN
+            $dosen = collect($response->json()['data'])->sortBy('nidn')->values();
+            return view('Dosen', compact('dosen'));
+        } else {
+            //jika gagal mengambil data, kembali ke halaman sebelumnya dengan pesan error
+            return back()->with('error', 'Gagal mengambil data dosen');
+        }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+        return view ('tambahdosen');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+        try {
+            $validate = $request->validate([
+                'nidn' => 'required',
+                'nama_dosen' => 'required',
+                'program_studi' => 'required',
+                'email' => 'required'
+
+            ]);
+
+            Http::post('http://localhost:8080/dosen', $validate);
+
+            response()->json([
+                'success' => true,
+                'message' => 'Dosen berhasil ditambahkan!',
+                'data' => $request
+            ], 201);
+
+            return redirect()->route('Dosen.index');
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function edit($nidn)
+    {
+        //
+        $response = Http::get("http://localhost:8080/dosen/$nidn");
+
+        if ($response->successful()) {
+            $json = $response->json();
+
+            // Ambil hanya data mahasiswa dari key 'data'
+            if (isset($json['data'])) {
+                $dosen = $json['data'];
+            } else {
+                $dosen = $json; // fallback kalau langsung objek
+            }
+
+            return view('editdosen', ['dosen' => $dosen]);
+        } else {
+            return redirect()->route('Dosen.index')->with('error', 'Data Dosen tidak ditemukan.');
+        }
+    }
+
+   
+    public function update(Request $request, $nidn)
+    {
+        //
+        try {
+            $validate = $request->validate([
+                'nidn' => 'required',
+                'nama_dosen' => 'required',
+                'program_studi' => 'required',
+                'email' => 'required'
+            ]);
+
+            Http::put("http://localhost:8080/dosen/$nidn", $validate);
+
+            response()->json([
+                'success' => true,
+                'message' => 'Dosen berhasil diperbarui',
+                'data' => $request
+            ], 200);
+            //redirect ke halaman index dosen
+            return redirect()->route('Dosen.index');
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($dosen)
+    {
+        //
+        Http::delete("http://localhost:8080/dosen/$dosen");
+        return redirect()->route('Dosen.index');
     }
 }
 ```
