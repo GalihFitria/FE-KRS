@@ -84,6 +84,11 @@ composer create-priject laravel/laravel (nama-projek)
 ```bash
 composer install
 ```
+<h3>4. Menjalankan Laravel</h3>
+
+```bash
+php artisan serve
+```
 
 ## 📁 Routing 
 Di routes/web.php :
