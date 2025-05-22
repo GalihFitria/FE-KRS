@@ -2,6 +2,7 @@
 Proyek ini merupakan implementasi frontend Laravel dengan Tailwind CSS yang berkomunikasi dengan backend REST API (misal dari CodeIgniter) untuk mengelola entitas Mahasiswa, Prodi, dan Kelas.
 
 🔗 [SI-KRS Backend (GitHub)](https://github.com/kristiandimasadiwicaksono/SI-KRS-Backend)
+
 🔗 [SI-KRS Database (GitHub)](https://github.com/WindyAnggitaPutri/SI_KRS_Database)
 
 ## 🧱 Teknologi yang Digunakan
