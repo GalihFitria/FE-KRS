@@ -10,15 +10,15 @@ Proyek ini merupakan implementasi frontend Laravel dengan Tailwind CSS yang berk
 - REST API Backend (misal: CodeIgniter 4)
 - Vite (build frontend asset Laravel)
 
-## 📦 Instalasi & Setup
-<h3>1. Clone Repository</h3>
+## 📦 BACKEND
+<h3>1. Clone Repository BE</h3>
 
 ```bash
-git clone https://github.com/GalihFitria/FE-KRS.git
-cd FE-KRS
+git clone https://github.com/kristiandimasadiwicaksono/SI-KRS-Backend.git
+cd SI-KRS-Backend
 ```
 
-<h3>2. Install Dependency Laravel</h3>
+<h3>2. Install Dependency CodeIgniter</h3>
 
 ```bash
 composer install
@@ -28,14 +28,58 @@ composer install
 ```bash
 cp .env.example .env
 ```
-
-<h3>4. Konfigurasi .env untuk Konsumsi API</h3>
+<h3>4. Menjalankan CodeIgniter</h3>
 
 ```bash
-APP_NAME=Laravel
-APP_URL=http://localhost:8000
-SESSION_DRIVER=file
+php spark serve
 ```
-> Tidak perlu konfigurasi DB karena semua data berasal dari API CodeIgniter.
 
-<h3>5. </h3>
+<h3>5. Cek EndPoint menggunakan Postman</h3>
+<h3>Kelas :</h3>
+
+- GET → http://localhost:8080/kelas / http://localhost:8080/kelas/{id}
+- POST → http://localhost:8080/kelas
+- PUT → http://localhost:8080/kelas/{id}
+- DELETE → http://localhost:8080/kelas/{id}
+
+<h3>Prodi</h3>
+
+- GET → http://localhost:8080/prodi / http://localhost:8080/prodi/{id}
+- POST → http://localhost:8080/prodi
+- PUT → http://localhost:8080/prodi/{id}
+- DELETE → http://localhost:8080/prodi/{id}
+
+<h3>Mahasiswa</h3>
+
+- GET → http://localhost:8080/mahasiswa / http://localhost:8080/mahasiswa/{id}
+- POST → http://localhost:8080/mahasiswa
+- PUT → http://localhost:8080/mahasiswa/{id}
+- DELETE → http://localhost:8080/mahasiswa/{id}
+
+## 🎨 FRONTEND
+<h3>1. Clone Repository FE</h3>
+
+```bash
+git clone https://github.com/GalihFitria/FE-KRS.git
+cd FE-KRS
+```
+
+<h3>2. Install Laravel </h3>
+<h3>Melalui Terminal/CMD</h3>
+
+```
+composer create-priject laravel/laravel (nama-projek)
+```
+
+<h3>Laragon</h3>
+
+- Buka Laragon
+- Klik kanan Quick app
+- Laravel
+
+<h3>3. Install Dependency Laravel</h3>
+
+```bash
+composer install
+```
+
