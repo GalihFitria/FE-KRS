@@ -13,7 +13,8 @@ Proyek ini merupakan implementasi frontend Laravel dengan Tailwind CSS yang berk
 - Vite (build frontend asset Laravel)
 
 ## DATABASE
-import database
+<h3>import database</h3>
+
 🔗 [SI-KRS Database (GitHub)](https://github.com/WindyAnggitaPutri/SI_KRS_Database)
 
 ## 📦 BACKEND
