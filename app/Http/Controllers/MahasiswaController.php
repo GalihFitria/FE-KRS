@@ -53,7 +53,7 @@ class MahasiswaController extends Controller
         //
         try {
             $validate = $request->validate([
-                'npm' => 'required|unique:mahasiswa,npm',
+                'npm' => 'required',
                 'nama_mahasiswa' => 'required',
                 'id_kelas' => 'required',
                 'kode_prodi' => 'required'
@@ -130,7 +130,6 @@ class MahasiswaController extends Controller
         } catch (\Exception $e) {
             return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-
     }
 
     /**
